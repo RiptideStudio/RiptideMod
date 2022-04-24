@@ -1,0 +1,3 @@
+displayName = Riptide's Mod
+author = Riptide
+version = 0.1
