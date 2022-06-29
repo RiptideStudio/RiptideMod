@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,27 +14,26 @@ namespace RiptideMod.Items
 
 		public override void SetDefaults() 
 		{
-			item.damage = 4;
-			item.ranged = true;
-			item.width = 40;
-			item.height = 40;
-			item.knockBack = 2;
-			item.value = 50;
-			item.rare = 1;
-			item.consumable = true;
-			item.shoot = mod.ProjectileType("GelBulletProjectile");
-			item.ammo = AmmoID.Bullet;
-			item.maxStack = 999;
-			item.shootSpeed = 4.5f;
+			Item.damage = 4;
+			Item.DamageType = DamageClass.Ranged;
+			Item.width = 40;
+			Item.height = 40;
+			Item.knockBack = 2;
+			Item.value = 50;
+			Item.rare = 1;
+			Item.consumable = true;
+			Item.shoot = Mod.Find<ModProjectile>("GelBulletProjectile").Type;
+			Item.ammo = AmmoID.Bullet;
+			Item.maxStack = 999;
+			Item.shootSpeed = 4.5f;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe(25);
 			recipe.AddIngredient(ItemID.Gel, 2);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 25);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

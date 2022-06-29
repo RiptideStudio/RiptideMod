@@ -14,33 +14,32 @@ namespace RiptideMod.Items
 		}
 		public override void SetDefaults() 
 		{
-			item.CloneDefaults(ItemID.Spear);
-			item.damage = 13;
-			item.melee = true;
-			item.width = 40;
-			item.height = 40;
-			item.useTime = 28;
-			item.useAnimation = 28;
-			item.knockBack = 7;
-			item.value = 500;
-			item.rare = 1; 
-			item.autoReuse = true;
-			item.shoot = mod.ProjectileType("SlimeSpearProjectile");
+			Item.CloneDefaults(ItemID.Spear);
+			Item.damage = 13;
+			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useTime = 28;
+			Item.useAnimation = 28;
+			Item.knockBack = 7;
+			Item.value = 500;
+			Item.rare = 1; 
+			Item.autoReuse = true;
+			Item.shoot = Mod.Find<ModProjectile>("SlimeSpearProjectile").Type;
 		}
 
         public override bool CanUseItem(Player player)
         {
-			return player.ownedProjectileCounts[mod.ProjectileType("SlimeSpearProjectile")] < 1;
+			return player.ownedProjectileCounts[Mod.Find<ModProjectile>("SlimeSpearProjectile").Type] < 1;
         }
 
         public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Gel, 12);
 			recipe.AddRecipeGroup("Wood", 5);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

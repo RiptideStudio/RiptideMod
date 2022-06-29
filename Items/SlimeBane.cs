@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,40 +17,39 @@ namespace RiptideMod.Items
 
         public override void SetDefaults() 
 		{
-			item.damage = 11;
-			item.ranged = true;
-			item.width = 40;
-			item.height = 40;
-			item.useTime = 28;
-			item.useAnimation = 28;
-			item.useStyle = 5;
-			item.knockBack = 1;
-			item.value = 3000;
-			item.rare = 1; 
-			item.UseSound = SoundID.Item5;
-			item.autoReuse = true;
-			item.shoot = 1;
-			item.useAmmo = AmmoID.Arrow;
-			item.shootSpeed = 6.5f;
-			item.noMelee = true;
+			Item.damage = 11;
+			Item.DamageType = DamageClass.Ranged;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useTime = 28;
+			Item.useAnimation = 28;
+			Item.useStyle = 5;
+			Item.knockBack = 1;
+			Item.value = 3000;
+			Item.rare = 1; 
+			Item.UseSound = SoundID.Item5;
+			Item.autoReuse = true;
+			Item.shoot = 1;
+			Item.useAmmo = AmmoID.Arrow;
+			Item.shootSpeed = 6.5f;
+			Item.noMelee = true;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Gel, 12);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Vector2 offset = new Vector2(speedX * 3, speedY * 3);
+			Vector2 offset = velocity * 3;
 			position += offset;
 			for (var i = 0; i < 2; i++)
             {
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(10*i));
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.ToRadians(10*i));
+				Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, perturbedSpeed, type, damage, knockback, player.whoAmI);
 			}
 			return false;
 		}

@@ -16,31 +16,30 @@ namespace RiptideMod.Items
 
         public override void SetDefaults() 
 		{
-			item.damage = 9;
-			item.ranged = true;
-			item.width = 40;
-			item.height = 40;
-			item.useTime = 32;
-			item.useAnimation = 32;
-			item.useStyle = 5;
-			item.knockBack = 3;
-			item.value = 1000;
-			item.rare = 1; 
-			item.UseSound = SoundID.Item5;
-			item.autoReuse = true;
-			item.shoot = 1;
-			item.useAmmo = AmmoID.Arrow;
-			item.shootSpeed = 6.25f;
-			item.noMelee = true;
+			Item.damage = 9;
+			Item.DamageType = DamageClass.Ranged;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useTime = 32;
+			Item.useAnimation = 32;
+			Item.useStyle = 5;
+			Item.knockBack = 3;
+			Item.value = 1000;
+			Item.rare = 1; 
+			Item.UseSound = SoundID.Item5;
+			Item.autoReuse = true;
+			Item.shoot = 1;
+			Item.useAmmo = AmmoID.Arrow;
+			Item.shootSpeed = 6.25f;
+			Item.noMelee = true;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Gel, 9);
 			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
         public override Vector2? HoldoutOffset()

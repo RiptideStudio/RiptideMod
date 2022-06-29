@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,32 +13,31 @@ namespace RiptideMod.Items
 
 		public override void SetDefaults() 
 		{
-			item.damage = 13;
-			item.melee = true;
-			item.width = 40;
-			item.height = 40;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.useStyle = 1;
-			item.knockBack = 5;
-			item.value = 1500;
-			item.rare = 1; 
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-			item.axe = 12;
-			item.hammer = 45;
-			item.useTurn = true;
-			item.scale = 1.2f;
+			Item.damage = 13;
+			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useStyle = 1;
+			Item.knockBack = 5;
+			Item.value = 1500;
+			Item.rare = 1; 
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = true;
+			Item.axe = 12;
+			Item.hammer = 45;
+			Item.useTurn = true;
+			Item.scale = 1.2f;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Gel, 15);
 			recipe.AddIngredient(ItemID.Wood, 5);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }
