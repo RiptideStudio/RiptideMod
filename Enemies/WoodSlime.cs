@@ -2,6 +2,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using Terraria.ModLoader.Utilities;
 
 namespace RiptideMod.Enemies
 {
@@ -10,22 +11,22 @@ namespace RiptideMod.Enemies
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Wooden Slime");
-            Main.npcFrameCount[npc.type] = Main.npcFrameCount[2];
+            Main.npcFrameCount[NPC.type] = Main.npcFrameCount[2];
         }
 
         public override void SetDefaults()
         {
-            npc.width = 32;
-            npc.height = 15;
-            npc.damage = 11;
-            npc.defense = 3;
-            npc.lifeMax = 22;
-            npc.value = 50f;
-            npc.aiStyle = 1;
-            npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
-            aiType = NPCID.GreenSlime;
-            animationType = NPCID.GreenSlime;
+            NPC.width = 32;
+            NPC.height = 15;
+            NPC.damage = 11;
+            NPC.defense = 3;
+            NPC.lifeMax = 22;
+            NPC.value = 50f;
+            NPC.aiStyle = 1;
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.DeathSound = SoundID.NPCDeath1;
+            AIType = NPCID.GreenSlime;
+            AnimationType = NPCID.GreenSlime;
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -34,18 +35,18 @@ namespace RiptideMod.Enemies
 
         public override void FindFrame(int frameHeight)
         {
-            npc.frameCounter++;
-            if (npc.frameCounter >= 20)
+            NPC.frameCounter++;
+            if (NPC.frameCounter >= 20)
             {
-                npc.frameCounter = 0;
+                NPC.frameCounter = 0;
             }
-            npc.frame.Y = (int)npc.frameCounter / 10 * frameHeight;
+            NPC.frame.Y = (int)NPC.frameCounter / 10 * frameHeight;
         }
 
-        public override void NPCLoot()
+        public override void OnKill()
         {
-            Item.NewItem(npc.getRect(), ItemID.Gel, Main.rand.Next(0, 2));
-            Item.NewItem(npc.getRect(), ItemID.Wood, Main.rand.Next(5, 10));
+            Item.NewItem(NPC.GetSource_Death(), NPC.getRect(), ItemID.Gel, Main.rand.Next(0, 2));
+            Item.NewItem(NPC.GetSource_Death(), NPC.getRect(), ItemID.Wood, Main.rand.Next(5, 10));
         }
 
     }
