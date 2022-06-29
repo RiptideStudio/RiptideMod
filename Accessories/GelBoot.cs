@@ -15,28 +15,27 @@ namespace RiptideMod.Accessories
 
 		public override void SetDefaults() 
 		{
-			item.width = 20;
-			item.height = 20;
-			item.value = 2500;
-			item.rare = 1;
-			item.accessory = true;
+			Item.width = 20;
+			Item.height = 20;
+			Item.value = 2500;
+			Item.rare = 1;
+			Item.accessory = true;
 		}
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			player.moveSpeed += 0.3f;
 			player.accRunSpeed += 0.25f;
-			player.GetModPlayer<WoodSlime>().slimeShoes = true;
+			player.GetModPlayer<GlobalPlayer>().slimeShoes = true;
         }
 
         public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Gel, 18);
 			recipe.AddIngredient(ItemID.Silk, 3);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }
