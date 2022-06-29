@@ -15,48 +15,48 @@ namespace RiptideMod.Projectiles
 
 		public override void SetDefaults() 
 		{
-			projectile.melee = true;
-			projectile.scale = 1.25f;
-			projectile.penetrate = -1;
-			projectile.aiStyle = 19;
-			projectile.width = 16;
-			projectile.height = 16;
-			projectile.friendly = true;
-			projectile.hostile = false;
-			projectile.timeLeft = 600;
-			projectile.light = 0.25f;
-			projectile.ignoreWater = false;
-			projectile.tileCollide = false;
-			projectile.ownerHitCheck = true;
-			projectile.hide = true;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.scale = 1.25f;
+			Projectile.penetrate = -1;
+			Projectile.aiStyle = 19;
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.friendly = true;
+			Projectile.hostile = false;
+			Projectile.timeLeft = 600;
+			Projectile.light = 0.25f;
+			Projectile.ignoreWater = false;
+			Projectile.tileCollide = false;
+			Projectile.ownerHitCheck = true;
+			Projectile.hide = true;
 		}
 
 		public float movementFactor
         {
-			get => projectile.ai[0] - 0.3f;
-			set => projectile.ai[0] = value;
+			get => Projectile.ai[0] - 0.3f;
+			set => Projectile.ai[0] = value;
         }
 
         public override void AI()
         {
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			Vector2 ownerMountedCenter = player.RotatedRelativePoint(player.MountedCenter, true);
 
-			projectile.direction = player.direction;
-			player.heldProj = projectile.whoAmI;
+			Projectile.direction = player.direction;
+			player.heldProj = Projectile.whoAmI;
 			player.itemTime = player.itemAnimation;
 
-			projectile.position.X = (ownerMountedCenter.X) - (float)projectile.width / 2;
-			projectile.position.Y = (ownerMountedCenter.Y) - (float)projectile.height / 2;
+			Projectile.position.X = (ownerMountedCenter.X) - (float)Projectile.width / 2;
+			Projectile.position.Y = (ownerMountedCenter.Y) - (float)Projectile.height / 2;
 
-			projectile.ai[1] += 1f;
+			Projectile.ai[1] += 1f;
 
 			if (!player.frozen)
             {
 				if (movementFactor == 0)
                 {
 					movementFactor = 2.6f;
-					projectile.netUpdate = true;
+					Projectile.netUpdate = true;
                 }
 				if (player.itemAnimation < player.itemAnimationMax/3)
                 {
@@ -67,18 +67,18 @@ namespace RiptideMod.Projectiles
                 }
             }
 
-			projectile.position += projectile.velocity * movementFactor;
+			Projectile.position += Projectile.velocity * movementFactor;
 
 			if (player.itemAnimation == 0)
             {
-				projectile.Kill();
+				Projectile.Kill();
             }
 
-			projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
+			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
 
-			if (projectile.spriteDirection == -1)
+			if (Projectile.spriteDirection == -1)
             {
-				projectile.rotation -= MathHelper.ToRadians(90f);
+				Projectile.rotation -= MathHelper.ToRadians(90f);
             }
 
         }
