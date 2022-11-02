@@ -5,17 +5,20 @@ using Microsoft.Xna.Framework;
 
 namespace RiptideMod
 {
-	public class WoodSlime : ModPlayer
+	public class GlobalPlayer : ModPlayer
 	{
 		public bool slimeShoes = false;
+        public bool livingSlimeMinion = false;
+
+        public float stickyDamage = 0f;
 
         public override void PostUpdate()
         {
-            if (player.velocity.X != 0 && slimeShoes)
+            if (Player.velocity.X != 0 && slimeShoes)
             {
-                if (player.velocity.Y == 0f)
+                if (Player.velocity.Y == 0f)
                 {
-                    int dust = Dust.NewDust(player.position + new Vector2(0, player.height - 4), player.width, 4, 16, 0f, 0f, 0, Colors.RarityBlue, 1f);
+                    int dust = Dust.NewDust(Player.position + new Vector2(0, Player.height - 4), Player.width, 4, 16, 0f, 0f, 0, Colors.RarityBlue, 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 0;
                 }
@@ -25,6 +28,7 @@ namespace RiptideMod
         public override void ResetEffects()
         {
             slimeShoes = false;
+            stickyDamage = 0f;
         }
     }
 }
